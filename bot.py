@@ -41,10 +41,12 @@ class TwitchChatBot:
         for channel in self.channels:
             self.send_command(f"JOIN #{channel}")
         # maybe used in the future or during dev, uneeded for actual use
-        # self.loop_for_messages()
+        self.loop_for_messages()
 
     def handle_message(self, message: str):
-        print(f"> {message}")
+        # print(f"> {message}")
+        if "PING" in message:
+            self.send_command(message.replace("PING", "PONG"))
 
     def loop_for_messages(self):
         while True:
