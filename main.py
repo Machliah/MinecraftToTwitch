@@ -45,7 +45,13 @@ def monitor_file_for_changes(instance: object, interval: float, callback):
     while True:
         time.sleep(interval)
         now = time.time()
-        if instance.was_modified() or instance.new_lines():
+        if instance.was_modified() and instance.new_lines():
+            # print(
+            #     instance.was_modified(),
+            #     instance.new_lines(),
+            #     instance.last_important_line,
+            #     instance.get_line_count(),
+            # )
             for chat in instance.get_new_chats():
                 callback(chat)
             instance.last_time = now
@@ -69,7 +75,7 @@ def main():
                 target=monitor_file_for_changes,
                 args=(
                     Instance(instance + 1, settings),
-                    0.1,
+                    0.25,
                     message_queue.put,
                 ),
                 daemon=True,

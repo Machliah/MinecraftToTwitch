@@ -21,20 +21,20 @@ class Instance:
         try:
             with open(self.path, "r") as f:
                 data = f.readlines()
-                for line in range(self.last_important_line + 1, self.get_line_count()):
+                for line in range(self.last_important_line, len(data)):
                     if (
                         f"[Render thread/INFO]: [CHAT] <{self.settings['InGameName']}>"
                         in data[line]
                     ):
                         print(f'{line}: "{data[line].strip()}"')
                         new_chats.append(self.parse_message(data[line]))
-                    self.last_important_line = line
         except PermissionError:
             print(
                 f"Failed to read file {self.path}, insufficient permission.".format(
                     self.path
                 ),
             )
+        self.last_important_line = self.get_line_count()
         return new_chats
 
     def parse_message(self, message: str) -> str:
@@ -50,7 +50,7 @@ class Instance:
         return lines
 
     def was_modified(self):
-        return os.path.getmtime(self.path) <= self.last_time
+        return os.path.getmtime(self.path) > self.last_time
 
     def new_lines(self):
         return self.last_important_line < self.get_line_count()
