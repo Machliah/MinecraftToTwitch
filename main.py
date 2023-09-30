@@ -1,5 +1,5 @@
 import time
-import os
+import sys, os
 import json
 import threading
 import queue
@@ -11,8 +11,9 @@ from commands import parse_command
 
 
 def check_settings():
+    print(sys.argv[0])
     settings_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "settings.json"
+        os.path.dirname(os.path.abspath(sys.argv[0])), "settings.json"
     )
     if os.path.isfile(settings_path):
         try:
@@ -26,7 +27,7 @@ def check_settings():
 
 def fill_in_missing_settings(settings_object):
     settings_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "settings.json"
+        os.path.dirname(os.path.abspath(sys.argv[0])), "settings.json"
     )
     for s in SETTINGS:
         if not s.name in settings_object:

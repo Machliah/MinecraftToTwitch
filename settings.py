@@ -1,5 +1,5 @@
 import re
-import os
+import sys, os
 import json
 
 
@@ -34,7 +34,7 @@ def get_channels(channels: str) -> list[str]:
 
 def get_settings():
     settings_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "settings.json"
+        os.path.dirname(os.path.abspath(sys.argv[0])), "settings.json"
     )
     with open(settings_path, "r") as f:
         return json.loads(f.read())
@@ -42,7 +42,7 @@ def get_settings():
 
 def write_settings(settings):
     settings_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "settings.json"
+        os.path.dirname(os.path.abspath(sys.argv[0])), "settings.json"
     )
     with open(settings_path, "w") as f:
         f.write(json.dumps(settings))
