@@ -1,2 +1,5 @@
 **pycache**
 **.json
+**build**
+**dist**
+main.spec
