@@ -30,6 +30,7 @@ class TwitchChatBot:
         # never print commands with your token in them
         if "PASS" not in command:
             pass
+            # only for debugging
             # print(f"< {command}")
         self.irc.send((command + "\r\n").encode())
 
