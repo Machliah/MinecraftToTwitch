@@ -98,7 +98,13 @@ def main():
     )
     console_reader.start()
 
+    idle_ping = 3000
     while True:
+        idle_ping -= 1
+        if idle_ping == 0:
+            twitch_bot.send_command("PING :tmi.twitch.tv")
+            idle_ping = 3000
+
         try:
             twitch_bot.send_chat(message_queue.get_nowait())
         except queue.Empty:

@@ -29,7 +29,8 @@ class TwitchChatBot:
     def send_command(self, command: str):
         # never print commands with your token in them
         if "PASS" not in command:
-            print(f"< {command}")
+            pass
+            # print(f"< {command}")
         self.irc.send((command + "\r\n").encode())
 
     def connect(self):
